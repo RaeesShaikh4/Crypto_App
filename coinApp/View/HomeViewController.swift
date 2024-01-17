@@ -12,7 +12,7 @@ import AlamofireImage
 class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,homeCellViewModelDelegate{
     
     private var homeViewModel = homeCellViewModel()
-
+    
     
     //MARK: Arrays
     var coinImgArr = ["Bitcoin","Band Protocol","Cardano","Ethereum","Tether","TRON"]
@@ -51,7 +51,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     
     // MARK: - HomeCellViewModelDelegate
     func success() {
@@ -69,22 +69,22 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBAction func selectAllButton(_ sender: UIButton) {
         print("selectAllButton clicked-----")
         homeViewModel.filterData(isGainer: nil)
-
-
+        
+        
     }
     
     @IBAction func selectGainerButton(_ sender: UIButton) {
         print("selectGainerButton clicked-----")
         homeViewModel.filterData(isGainer: true)
-
-
+        
+        
     }
     
     @IBAction func selectLoserButton(_ sender: UIButton) {
         print("selectLoserButton clicked-----")
         homeViewModel.filterData(isGainer: false)
-
-
+        
+        
     }
     
     @IBAction func selectFavouriteButton(_ sender: UIButton) {
@@ -110,9 +110,9 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "homeTVC") as! homeTVC
         cell.homeTvcView.layer.cornerRadius = 15
-
+        
         let crypto: homeCellModel
-
+        
         if homeViewModel.filteredCryptos.isEmpty {
             // All cryptos array , If Filtercryptos is empty
             crypto = homeViewModel.cryptos[indexPath.row]
@@ -120,24 +120,41 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             // Displaying data from the filtered array
             crypto = homeViewModel.filteredCryptos[indexPath.row]
         }
-
+        
         // Using AlamofireImage
         if let imageURL = URL(string: crypto.image){
             cell.coinImage.af.setImage(withURL: imageURL)
         }
-
+        
         cell.coinName.text = crypto.name
         cell.coinDetail.text = crypto.symbol
         cell.coinPrice.text = "₹ \(crypto.currentPrice)"
         cell.coinProfit.text = "\(crypto.priceChangePercentage24H)%"
         cell.coinStatusImage.image = UIImage(named: "Bitcoin-Graph")
         cell.coinProfit.textColor = homeViewModel.textColorForProfit(crypto.priceChangePercentage24H)
-
+        
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var selectedCryptoId: String // Assuming the ID is a String, adjust accordingly
+        
+        if homeViewModel.filteredCryptos.isEmpty {
+            selectedCryptoId = homeViewModel.cryptos[indexPath.row].id
+        } else {
+            selectedCryptoId = homeViewModel.filteredCryptos[indexPath.row].id
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let chartVC = storyboard.instantiateViewController(withIdentifier: "chartViewController") as? chartViewController {
+            chartVC.selectedCryptoId = selectedCryptoId
+            chartVC.homeModel = homeViewModel.cryptos[indexPath.row] // Pass the selected homeCellModel
+            navigationController?.pushViewController(chartVC, animated: true)
+        }
     }
     
 }

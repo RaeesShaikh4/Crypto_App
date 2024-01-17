@@ -1089,7 +1089,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JWG-wz-gfm">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWG-wz-gfm">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WOF-hJ-1F8">
@@ -1108,6 +1108,9 @@
                                                         <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system">
                                                             <color key="baseForegroundColor" red="0.12941176470588234" green="0.14509803921568626" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="backBtn:" destination="3xQ-HK-XW8" eventType="touchUpInside" id="TDO-FU-ui1"/>
+                                                        </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXW-ea-J7o">
                                                         <rect key="frame" x="46" y="11.666666666666664" width="146" height="24"/>
@@ -1240,7 +1243,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="We3-DL-Etl">
                                                 <rect key="frame" x="0.0" y="99" width="393" height="801"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S3C-Qd-NXb">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S3C-Qd-NXb" customClass="LineChartView" customModule="Charts">
                                                         <rect key="frame" x="0.0" y="0.0" width="393" height="400.66666666666669"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </view>
@@ -1398,7 +1401,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="BTl-DB-fvu" firstAttribute="leading" secondItem="Jcb-IF-sQC" secondAttribute="trailing" constant="10" id="0lQ-By-vxw"/>
                                                                     <constraint firstItem="fcg-Hz-A8Q" firstAttribute="centerY" secondItem="QkW-2C-Z9o" secondAttribute="centerY" id="4t4-pU-F6K"/>
@@ -1534,6 +1537,9 @@
                                                                         <buttonConfiguration key="configuration" style="plain" title="SELL">
                                                                             <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <action selector="sellBtn:" destination="3xQ-HK-XW8" eventType="touchUpInside" id="2UC-R7-n0R"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1613,6 +1619,10 @@
                     <tabBarItem key="tabBarItem" title="Item" id="mmg-JP-7mi"/>
                     <connections>
                         <outlet property="cellDataView" destination="zVs-Ov-PYl" id="lAY-QD-1nk"/>
+                        <outlet property="chartCoinImage" destination="sBb-hX-h4P" id="Gko-UZ-ShH"/>
+                        <outlet property="chartCoinLabel" destination="d6i-8N-wvD" id="fmV-ZZ-8DE"/>
+                        <outlet property="chartCoinPrice" destination="cHQ-SZ-SDS" id="myE-vi-oKb"/>
+                        <outlet property="chartView" destination="S3C-Qd-NXb" id="E4Y-G4-1dY"/>
                         <outlet property="exchangeBtnView" destination="fV9-fJ-zOk" id="W0i-jR-P7a"/>
                         <outlet property="transactionView" destination="bbH-dw-pK5" id="Y1T-pe-DVJ"/>
                         <outletCollection property="btnViewCollection" destination="AwP-dx-7Cq" collectionClass="NSMutableArray" id="0lX-gn-EDW"/>
@@ -1800,7 +1810,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZP2-n8-Tgn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2767" y="1036"/>
+            <point key="canvasLocation" x="2674" y="1008"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="JYd-b1-rIp">
+            <objects>
+                <viewController id="Cjv-v7-K9b" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LZD-iR-3YN">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a8H-Sc-pJN">
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="852"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TCg-Tf-Zbh">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="852"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <viewLayoutGuide key="contentLayoutGuide" id="lhg-rh-lSU"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="U7b-pD-0IO"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iWL-jc-USd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yCX-Sf-OJA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3486.2595419847326" y="1007.0422535211268"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aGr-2Y-OEO">
@@ -1813,7 +1853,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="g8e-xf-TJx" kind="relationship" relationship="viewControllers" id="iwd-IW-6iZ"/>
-                        <segue destination="3xQ-HK-XW8" kind="relationship" relationship="viewControllers" id="bZ3-cx-Lvy"/>
                         <segue destination="LQW-Ga-bcY" kind="relationship" relationship="viewControllers" id="6Ad-o7-LVY"/>
                     </connections>
                 </tabBarController>

@@ -6,6 +6,7 @@ target 'coinApp' do
   use_frameworks!
 pod 'Alamofire'
 pod 'AlamofireImage'
+pod 'Charts'
   # Pods for coinApp
  pod 'FirebaseAuth'
 pod 'FirebaseFirestore'

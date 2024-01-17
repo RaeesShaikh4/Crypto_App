@@ -74,7 +74,7 @@ class ViewController: UIViewController {
            }
            
            if isValidEmail(email) {
-               showAlert(title: "Success", message: "Login Successful")
+//               showAlert(title: "Success", message: "Login Successful")
                let tabBar = storyboard?.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
                navigationController?.pushViewController(tabBar, animated: true)
            } else {

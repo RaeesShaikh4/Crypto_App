@@ -22,6 +22,7 @@
 		C9144D5B2B4BF38300F37FF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9144D592B4BF38300F37FF2 /* LaunchScreen.storyboard */; };
 		C9144D632B4BF41B00F37FF2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9144D622B4BF41B00F37FF2 /* GoogleService-Info.plist */; };
 		C9144D682B4BF85600F37FF2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9144D672B4BF85600F37FF2 /* WelcomeViewController.swift */; };
+		C91AC4DF2B5680EE00E2C84B /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AC4DE2B5680EE00E2C84B /* CustomMarkerView.swift */; };
 		C91EA0602B5503ED0052C8A7 /* profileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91EA05F2B5503ED0052C8A7 /* profileViewController.swift */; };
 		C91EA0632B55041C0052C8A7 /* profileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91EA0612B55041C0052C8A7 /* profileTVC.swift */; };
 		C91EA0642B55041C0052C8A7 /* profileTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91EA0622B55041C0052C8A7 /* profileTVC.xib */; };
@@ -29,6 +30,7 @@
 		C9B374252B4D29D40050D75A /* styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B374242B4D29D30050D75A /* styles.swift */; };
 		C9B3742B2B4D34DA0050D75A /* TopRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3742A2B4D34D90050D75A /* TopRoundedView.swift */; };
 		C9B68ECD2B52EBAB00B82A03 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B68ECC2B52EBAB00B82A03 /* APICaller.swift */; };
+		C9B816022B553EB200BA4E44 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B816012B553EB200BA4E44 /* ChartViewModel.swift */; };
 		D0982A71FB4D4654A2734B5D /* Pods_coinApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B4472EF51C23A5B80D28C7 /* Pods_coinApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +54,7 @@
 		C9144D5C2B4BF38300F37FF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9144D622B4BF41B00F37FF2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C9144D672B4BF85600F37FF2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		C91AC4DE2B5680EE00E2C84B /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		C91EA05F2B5503ED0052C8A7 /* profileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewController.swift; sourceTree = "<group>"; };
 		C91EA0612B55041C0052C8A7 /* profileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileTVC.swift; sourceTree = "<group>"; };
 		C91EA0622B55041C0052C8A7 /* profileTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = profileTVC.xib; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 		C9B374242B4D29D30050D75A /* styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = styles.swift; sourceTree = "<group>"; };
 		C9B3742A2B4D34D90050D75A /* TopRoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRoundedView.swift; sourceTree = "<group>"; };
 		C9B68ECC2B52EBAB00B82A03 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		C9B816012B553EB200BA4E44 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
 		FD5910C596AEB5CD798FDF56 /* Pods-coinApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coinApp.debug.xcconfig"; path = "Target Support Files/Pods-coinApp/Pods-coinApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,8 +100,6 @@
 			children = (
 				C90ECFF62B542B1300FF5AB6 /* chartViewController.swift */,
 				C91EA05F2B5503ED0052C8A7 /* profileViewController.swift */,
-				C91EA0612B55041C0052C8A7 /* profileTVC.swift */,
-				C91EA0622B55041C0052C8A7 /* profileTVC.xib */,
 			);
 			path = "In-Progress";
 			sourceTree = "<group>";
@@ -105,6 +107,7 @@
 		C90C3D4D2B4ED583003550F1 /* Cell's */ = {
 			isa = PBXGroup;
 			children = (
+				C91EA0612B55041C0052C8A7 /* profileTVC.swift */,
 				C91317302B4ED8B200C80A4F /* homeTVC.swift */,
 			);
 			path = "Cell's";
@@ -113,6 +116,7 @@
 		C90C3D4E2B4ED59B003550F1 /* Xib's */ = {
 			isa = PBXGroup;
 			children = (
+				C91EA0622B55041C0052C8A7 /* profileTVC.xib */,
 				C91317312B4ED8B200C80A4F /* homeTVC.xib */,
 			);
 			path = "Xib's";
@@ -180,6 +184,7 @@
 		C9B374272B4D300D0050D75A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C9B816012B553EB200BA4E44 /* ChartViewModel.swift */,
 				C907969F2B51030B0051A323 /* homeCellViewModel.swift */,
 			);
 			path = ViewModel;
@@ -207,6 +212,7 @@
 			children = (
 				C9B374242B4D29D30050D75A /* styles.swift */,
 				C9B3742A2B4D34D90050D75A /* TopRoundedView.swift */,
+				C91AC4DE2B5680EE00E2C84B /* CustomMarkerView.swift */,
 			);
 			path = customViews;
 			sourceTree = "<group>";
@@ -329,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B816022B553EB200BA4E44 /* ChartViewModel.swift in Sources */,
 				C91317322B4ED8B200C80A4F /* homeTVC.swift in Sources */,
 				C90ECFF72B542B1300FF5AB6 /* chartViewController.swift in Sources */,
 				C9144D532B4BF37D00F37FF2 /* ViewController.swift in Sources */,
@@ -339,6 +346,7 @@
 				C9B374252B4D29D40050D75A /* styles.swift in Sources */,
 				C91EA0602B5503ED0052C8A7 /* profileViewController.swift in Sources */,
 				C91EA0632B55041C0052C8A7 /* profileTVC.swift in Sources */,
+				C91AC4DF2B5680EE00E2C84B /* CustomMarkerView.swift in Sources */,
 				C9144D4F2B4BF37D00F37FF2 /* AppDelegate.swift in Sources */,
 				C910F26D2B4EA7B000DF7441 /* HomeViewController.swift in Sources */,
 				C9B3742B2B4D34DA0050D75A /* TopRoundedView.swift in Sources */,
