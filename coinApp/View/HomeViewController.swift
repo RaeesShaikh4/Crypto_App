@@ -141,7 +141,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var selectedCryptoId: String // Assuming the ID is a String, adjust accordingly
+        var selectedCryptoId: String
         
         if homeViewModel.filteredCryptos.isEmpty {
             selectedCryptoId = homeViewModel.cryptos[indexPath.row].id
@@ -152,7 +152,9 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let chartVC = storyboard.instantiateViewController(withIdentifier: "chartViewController") as? chartViewController {
             chartVC.selectedCryptoId = selectedCryptoId
-            chartVC.homeModel = homeViewModel.cryptos[indexPath.row] // Pass the selected homeCellModel
+            chartVC.homeModel = homeViewModel.cryptos[indexPath.row] // Passing the selected homeCellModel
+           
+            
             navigationController?.pushViewController(chartVC, animated: true)
         }
     }

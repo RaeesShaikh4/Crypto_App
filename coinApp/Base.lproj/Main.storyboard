@@ -1089,7 +1089,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWG-wz-gfm">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JWG-wz-gfm">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WOF-hJ-1F8">
@@ -1115,7 +1115,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXW-ea-J7o">
                                                         <rect key="frame" x="46" y="11.666666666666664" width="146" height="24"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="sBb-hX-h4P">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sBb-hX-h4P">
                                                                 <rect key="frame" x="5" y="0.0" width="24" height="24"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="24" id="iZW-ut-xgW"/>
@@ -1430,8 +1430,8 @@
                                                                             <constraint firstAttribute="width" constant="40" id="Hyf-hB-K0Y"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XmE-UH-tkg">
-                                                                        <rect key="frame" x="62" y="17" width="52.666666666666657" height="20"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XmE-UH-tkg">
+                                                                        <rect key="frame" x="62" y="17" width="45" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="20" id="9lO-XN-fqr"/>
                                                                         </constraints>
@@ -1620,8 +1620,10 @@
                     <connections>
                         <outlet property="cellDataView" destination="zVs-Ov-PYl" id="lAY-QD-1nk"/>
                         <outlet property="chartCoinImage" destination="sBb-hX-h4P" id="Gko-UZ-ShH"/>
-                        <outlet property="chartCoinLabel" destination="d6i-8N-wvD" id="fmV-ZZ-8DE"/>
+                        <outlet property="chartCoinName" destination="d6i-8N-wvD" id="zua-Fp-lxk"/>
+                        <outlet property="chartCoinPercentage" destination="1mE-SZ-yyX" id="fL8-mf-Ke8"/>
                         <outlet property="chartCoinPrice" destination="cHQ-SZ-SDS" id="myE-vi-oKb"/>
+                        <outlet property="chartCoinSymbol" destination="KWI-uQ-OcW" id="xuT-ib-I3i"/>
                         <outlet property="chartView" destination="S3C-Qd-NXb" id="E4Y-G4-1dY"/>
                         <outlet property="exchangeBtnView" destination="fV9-fJ-zOk" id="W0i-jR-P7a"/>
                         <outlet property="transactionView" destination="bbH-dw-pK5" id="Y1T-pe-DVJ"/>
@@ -1863,7 +1865,6 @@
     </scenes>
     <resources>
         <image name="Airplain-bg" width="1920" height="1920"/>
-        <image name="Bitcoin" width="120" height="120"/>
         <image name="Bottom-img" width="47" height="20"/>
         <image name="Exchange-Icon" width="16" height="16"/>
         <image name="Market-tab-Selected" width="22" height="21"/>

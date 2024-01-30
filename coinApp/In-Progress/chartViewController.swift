@@ -7,13 +7,17 @@
 
 import UIKit
 import Charts
+import AlamofireImage
 
 class chartViewController: UIViewController {
     
     //MARK: Outlets
     @IBOutlet var chartCoinImage:UIImageView!
-    @IBOutlet var chartCoinLabel:UILabel!
+    @IBOutlet var chartCoinName:UILabel!
     @IBOutlet var chartCoinPrice:UILabel!
+    @IBOutlet var chartCoinSymbol:UILabel!
+    @IBOutlet var chartCoinPercentage:UILabel!
+    
     
     @IBOutlet var exchangeBtnView:UIView!
     @IBOutlet var btnViewCollection:[UIView]!
@@ -24,6 +28,7 @@ class chartViewController: UIViewController {
     var selectedCryptoId: String?
     var viewModel: ChartViewModel?
     var homeModel: homeCellModel?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,11 +101,30 @@ class chartViewController: UIViewController {
             viewModel = ChartViewModel()
             viewModel?.selectedCryptoId = selectedCryptoId
             viewModel?.setData(from: homeModel)
+            updateLabels()
             viewModel?.fetchChartData { entries in
                 self.updateChart(with: entries)
             }
+            
         }
     }
+    
+    func updateLabels() {
+        guard let viewModel = viewModel else {
+            print("Error: ViewModel is nil.")
+            return
+        }
+        
+        chartCoinName.text = viewModel.cryptoName
+        chartCoinPrice.text = "\(viewModel.cryptoCurrentPrice ?? 0.0)"
+        
+        if let imageUrl = URL(string: viewModel.cryptoImage ?? "") {
+        }
+        
+        chartCoinSymbol.text = viewModel.cryptoSymbol
+        chartCoinPercentage.text = "\(viewModel.cryptoPriceChangePercentage ?? 0.0)%"
+    }
+    
     
     //MARK: Updating Chart
     func updateChart(with entries: [ChartDataEntry]) {
@@ -112,9 +136,16 @@ class chartViewController: UIViewController {
         print("Number of entries: \(entries.count)")
         
         let dataSet = LineChartDataSet(entries: entries, label: "Crypto Price")
-        dataSet.colors = [NSUIColor.blue]
+        dataSet.colors = [NSUIColor(red: 0/255, green: 99/255, blue: 245/255, alpha: 1.0)]
         dataSet.drawCirclesEnabled = false
         dataSet.drawValuesEnabled = false
+        
+        //        //--------------
+        //        dataSet.mode = .cubicBezier
+        //        dataSet.cubicIntensity = 0.2
+        //        dataSet.drawFilledEnabled = true
+        //        dataSet.fillColor = UIColor(red: 0, green: 0.388, blue: 0.961, alpha: 0.24)
+        //        dataSet.fillAlpha = 0.6
         
         let data = LineChartData(dataSet: dataSet)
         
@@ -137,6 +168,7 @@ class chartViewController: UIViewController {
                 lineChartView.rightAxis.drawAxisLineEnabled = false
                 lineChartView.xAxis.drawLabelsEnabled = false
                 
+                
                 print("Adding markers")
                 
                 viewModel?.fetchHighestAndLowestPrices { highestPrice, lowestPrice in
@@ -157,38 +189,89 @@ class chartViewController: UIViewController {
     //MARK: Adding Labels
     func addMarker(label: String, position: ChartDataEntry) {
         print("addMarker called----")
-
-        guard let lineChartView = self.chartView as? LineChartView else {
+        
+        guard let lineChartView = self.chartView as? LineChartView, let viewModel = self.viewModel else {
             return
         }
-
+        
         let marker = CustomMarkerView()
         marker.chartView = lineChartView
         marker.label.text = label
         marker.label.textColor = UIColor.black
-
-        // Print values for debugging
-        print("Position - X: \(position.x), Y: \(position.y)")
         
-        // Ensure the refreshContent method is called
+        // Refresh content for the current position
         marker.refreshContent(entry: position, highlight: Highlight(x: position.x, y: position.y, dataSetIndex: 0))
         
-        // Set marker's position exactly on the lowest point
-        let markerPoint = lineChartView.getPosition(entry: position, axis: .left)
-        
-        // Print calculated marker position for debugging
-        print("Marker Point - X: \(markerPoint.x), Y: \(markerPoint.y)")
-        
-        // Set marker's offset
+        // Set marker's position exactly on the current point
+        let markerPoint = lineChartView.getMarkerPosition(highlight: Highlight(x: position.x, y: position.y, dataSetIndex: 0))
         marker.offset = CGPoint(x: markerPoint.x - marker.bounds.width / 2, y: markerPoint.y - marker.bounds.height - 10)
-
+        
         // Set marker on the main thread
         DispatchQueue.main.async {
             lineChartView.marker = marker
         }
+        
+        // Fetch highest and lowest prices
+        viewModel.fetchHighestAndLowestPrices { highestPrice, lowestPrice in
+            if let highest = highestPrice {
+                let highestEntry = ChartDataEntry(x: Double(viewModel.chartData.count - 1), y: highest)
+                let highestMarkerPoint = lineChartView.getMarkerPosition(highlight: Highlight(x: highestEntry.x, y: highestEntry.y, dataSetIndex: 0))
+                
+                let highestMarker = CustomMarkerView()
+                highestMarker.chartView = lineChartView
+                highestMarker.label.text = "₹ \(highest)"
+                highestMarker.label.numberOfLines = 0
+                highestMarker.label.textColor = UIColor.black
+                highestMarker.refreshContent(entry: highestEntry, highlight: Highlight(x: highestEntry.x, y: highestEntry.y, dataSetIndex: 0))
+                highestMarker.offset = CGPoint(x: highestMarkerPoint.x - highestMarker.bounds.width / 2, y: highestMarkerPoint.y - highestMarker.bounds.height - 10)
+                
+                // Set highest marker on the main thread
+                DispatchQueue.main.async {
+                    lineChartView.marker = highestMarker
+                }
+            }
+            
+            if let lowest = lowestPrice {
+                let lowestEntry = ChartDataEntry(x: 0, y: lowest)
+                let lowestMarkerPoint = lineChartView.getMarkerPosition(highlight: Highlight(x: lowestEntry.x, y: lowestEntry.y, dataSetIndex: 0))
+                
+                let lowestMarker = CustomMarkerView()
+                lowestMarker.chartView = lineChartView
+                lowestMarker.label.text = "₹ \(lowest)"
+                lowestMarker.label.numberOfLines = 0
+                lowestMarker.label.textColor = UIColor.black
+                lowestMarker.refreshContent(entry: lowestEntry, highlight: Highlight(x: lowestEntry.x, y: lowestEntry.y, dataSetIndex: 0))
+                lowestMarker.offset = CGPoint(x: lowestMarkerPoint.x - lowestMarker.bounds.width / 2, y: lowestMarkerPoint.y - lowestMarker.bounds.height - 10)
+                
+                // Set lowest marker on the main thread
+                DispatchQueue.main.async {
+                    lineChartView.marker = lowestMarker
+                }
+            }
+        }
     }
-
-
+    
+    func applyShadowToLine(chartView: LineChartView, dataSet: LineChartDataSet) {
+        guard let lineChartPath = chartView.renderer?.createPath(dataProvider: chartView,
+                                                                 dataSet: dataSet,
+                                                                 min: dataSet.yMin,
+                                                                 max: dataSet.yMax,
+                                                                 trans: chartView.getTransformer(forAxis: dataSet.axisDependency))
+        else {
+            return
+        }
+        
+        let shadowLayer = CAShapeLayer()
+        shadowLayer.path = lineChartPath.cgPath
+        shadowLayer.fillColor = UIColor.clear.cgColor
+        shadowLayer.shadowColor = UIColor.blue.cgColor  // Set your desired shadow color
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
+        shadowLayer.shadowRadius = 4
+        shadowLayer.shadowOpacity = 0.5
+        
+        chartView.layer.addSublayer(shadowLayer)
+    }
     
 }
+
 

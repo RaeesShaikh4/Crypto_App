@@ -10,28 +10,44 @@ import UIKit
 import Charts
 
 class ChartViewModel {
+    
     var selectedCryptoId: String?
     var chartData: [Double] = []
-
+    
+    var cryptoName: String?
+    var cryptoSymbol: String?
+    var cryptoImage: String?
+    var cryptoCurrentPrice: Double?
+    var cryptoPriceChangePercentage: Double?
+    
+    
+    
     //MARK: Setting Data
     func setData(from model: homeCellModel) {
         let sparklineData = model.sparklineIn7D
-
+        
         guard !sparklineData.price.isEmpty else {
             print("Error: sparklineIn7D.price is empty")
             return
         }
-
+        
         chartData = sparklineData.price
         print("Chart Data: \(chartData)")
+        
+        cryptoName = model.name
+        cryptoSymbol = model.symbol
+        cryptoImage = model.image
+        cryptoCurrentPrice = model.currentPrice
+        cryptoPriceChangePercentage = model.priceChangePercentage24H
+        
     }
-
+    
     //MARK: fetching Chart Data
     func fetchChartData(completion: @escaping ([ChartDataEntry]) -> Void) {
         let entries = returnChartData()
-
+        
         print("Chart Entries: \(entries)")
-
+        
         completion(entries)
     }
     
@@ -45,6 +61,9 @@ class ChartViewModel {
         return values
     }
     
+    //MARK: fetch crypto data
+    
+    
     //MARK: fetch Highest And Lowest Prices
     func fetchHighestAndLowestPrices(completion: @escaping (Double?, Double?) -> Void) {
         // Check if chartData is not empty
@@ -53,16 +72,16 @@ class ChartViewModel {
             completion(nil, nil)
             return
         }
-
+        
         // Fetch highest and lowest prices
         let highestPrice = chartData.max()
         let lowestPrice = chartData.min()
-
+        
         print("Highest Price: \(highestPrice ?? 0.0)")
         print("Lowest Price: \(lowestPrice ?? 0.0)")
-
+        
         completion(highestPrice, lowestPrice)
     }
-
-
+    
+    
 }
